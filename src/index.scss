@@ -1,0 +1,26 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    body {
+        @apply bg-slate-900 px-5;
+    }
+}
+@layer components {
+    .swiper{
+        .swiper-button-next, .swiper-button-prev{
+            display: none;
+        }
+    }
+    .page-container {
+        max-width: 1280px;
+        margin: 0 auto;
+    }
+    .movie-list .swiper-slide{
+        width: 300px;
+        
+    }
+}
+
+

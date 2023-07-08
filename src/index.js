@@ -1,17 +1,38 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React, { lazy, Suspense } from "react";
+import ReactDOM from "react-dom/client";
+import "./index.scss";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+const root = ReactDOM.createRoot(document.getElementById("root"));
+const Movie = lazy(() => import("./component/Pages/Movie"));
+const Banner = lazy(() => import("./component/banner/Banner"));
+const HomePage = lazy(() => import("./component/Pages/HomePage"));
+const MovieDetail = lazy(() => import("./component/Pages/MovieDetail"));
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
+    <BrowserRouter>
+        <Suspense>
+            <Routes>
+                <Route path="/" element={<App></App>}>
+                    <Route
+                        path="/"
+                        element={
+                            <>
+                                <Banner></Banner>
+                                <HomePage></HomePage>
+                            </>
+                        }
+                    ></Route>
+                    <Route path="/movie" element={<Movie />}></Route>
+                    <Route
+                        path="/movie/:movieId"
+                        element={<MovieDetail />}
+                    ></Route>
+                </Route>
+            </Routes>
+        </Suspense>
+    </BrowserRouter>
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
